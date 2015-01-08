@@ -14,8 +14,9 @@
 @property (nonatomic, readonly) NSArray *rows;
 @property (nonatomic, readonly) NSDictionary *columns;
 
-- (id)initWithContentsOfURL:(NSURL *)url;
-- (id)initWithContentsOfURL:(NSURL *)url columnSeparator:(NSString *)separator;
+- (instancetype)initWithString:(NSString*)str columnSeparator:(NSString *)separator;
+- (instancetype)initWithContentsOfURL:(NSURL *)url;
+- (instancetype)initWithContentsOfURL:(NSURL *)url columnSeparator:(NSString *)separator;
 - (NSArray *)rowsOfValue:(id)value forHeader:(NSString *)header;
 
 @end

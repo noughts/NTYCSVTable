@@ -18,21 +18,25 @@
 
 @implementation NTYCSVTable
 
-- (id)initWithContentsOfURL:(NSURL *)url columnSeparator:(NSString *)separator {
-    self = [super init];
-    if (self) {
-        self.columnSeperator = separator;
-        NSString *csvString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-        csvString = [csvString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-        NSArray *lines = [csvString componentsSeparatedByString:@"\n"];
-        [self parseHeadersFromLines:lines];
-        [self parseRowsFromLines:lines];
-        [self parseColumnsFromLines:lines];
-    }
-    return self;
+- (instancetype)initWithString:(NSString*)str columnSeparator:(NSString *)separator{
+	self = [super init];
+	if (self) {
+		self.columnSeperator = separator;
+		NSString* csvString = [str stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+		NSArray *lines = [csvString componentsSeparatedByString:@"\n"];
+		[self parseHeadersFromLines:lines];
+		[self parseRowsFromLines:lines];
+		[self parseColumnsFromLines:lines];
+	}
+	return self;
 }
 
-- (id)initWithContentsOfURL:(NSURL *)url
+- (instancetype)initWithContentsOfURL:(NSURL *)url columnSeparator:(NSString *)separator {
+	NSString *csvString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+	return [self initWithString:csvString columnSeparator:separator];
+}
+
+- (instancetype)initWithContentsOfURL:(NSURL *)url
 {
     return [self initWithContentsOfURL:url columnSeparator:@","];
 }
