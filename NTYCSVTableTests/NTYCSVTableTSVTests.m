@@ -18,9 +18,10 @@
 - (void)setUp
 {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-    NSURL *csvURL = [[NSBundle bundleForClass:self.class] URLForResource:@"sample" withExtension:@"tsv"];
-    self.table = [[NTYCSVTable alloc] initWithContentsOfURL:csvURL columnSeparator:@"\t"];
+//    NSURL *csvURL = [[NSBundle bundleForClass:self.class] URLForResource:@"sample" withExtension:@"tsv"];
+//    self.table = [[NTYCSVTable alloc] initWithContentsOfURL:csvURL columnSeparator:@"\t"];
+	NSURL *csvURL = [[NSBundle bundleForClass:self.class] URLForResource:@"sample" withExtension:@"csv"];
+	self.table = [[NTYCSVTable alloc] initWithContentsOfURL:csvURL];
 }
 
 - (void)tearDown
@@ -42,7 +43,7 @@
                         @{@"id": @2, @"name": @"Bob", @"age": @19, @"adult": @NO},
                         @{@"id": @3, @"name": @"Charlie", @"age": @1396383555363, @"adult": @YES}
                         ];
-    XCTAssertEqualObjects(self.table.rows, expect, @"");
+    XCTAssertEqualObjects(self.table.rows, expect, @"%@", self.table.rows);
 }
 
 - (void)testColumns
@@ -53,7 +54,7 @@
                              @"age": @[@18, @19, @1396383555363],
                              @"adult": @[@NO, @NO, @YES]
                              };
-    XCTAssertEqualObjects(self.table.columns, expect, @"");
+    XCTAssertEqualObjects(self.table.columns, expect, @"%@", self.table.columns);
 }
 
 - (void)testRowsOfValuesForHeader

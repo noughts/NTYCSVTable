@@ -38,65 +38,63 @@
 
 - (instancetype)initWithContentsOfURL:(NSURL *)url
 {
-    return [self initWithContentsOfURL:url columnSeparator:@","];
+	return [self initWithContentsOfURL:url columnSeparator:@","];
 }
 
 - (NSArray *)rowsOfValue:(id)value forHeader:(NSString *)header
 {
-    NSPredicate *predicate = [NSComparisonPredicate predicateWithLeftExpression:[NSExpression expressionForKeyPath:header]
-                                                                rightExpression:[NSExpression expressionForConstantValue:value]
-                                                                       modifier:NSDirectPredicateModifier
-                                                                           type:NSEqualToPredicateOperatorType
-                                                                        options:0];
-    return [self.rows filteredArrayUsingPredicate:predicate];
+	NSPredicate *predicate = [NSComparisonPredicate predicateWithLeftExpression:[NSExpression expressionForKeyPath:header]
+																rightExpression:[NSExpression expressionForConstantValue:value]
+																	   modifier:NSDirectPredicateModifier
+																		   type:NSEqualToPredicateOperatorType
+																		options:0];
+	return [self.rows filteredArrayUsingPredicate:predicate];
 }
 
 #pragma mark - Private methods
 
 - (void)parseHeadersFromLines:(NSArray *)lines
 {
-    NSString *headerLine = lines.firstObject;
-    self.headers = [headerLine componentsSeparatedByString:self.columnSeperator];
+	NSString *headerLine = lines.firstObject;
+	self.headers = [headerLine componentsSeparatedByString:self.columnSeperator];
 }
 
-- (void)parseRowsFromLines:(NSArray *)lines
-{
-    NSMutableArray *rows = [NSMutableArray new];
-    for (NSString *line in lines) {
-        NSInteger lineNumber = [lines indexOfObject:line];
-        if (lineNumber == 0) {
-            continue;
-        }
-        
-        NSArray *values = [line componentsSeparatedByString:self.columnSeperator];
-        NSMutableDictionary *row = [NSMutableDictionary new];
-        for (NSString *header in self.headers) {
-            NSUInteger index = [self.headers indexOfObject:header];
-            NSString *value = values[index];
-            if ([value isDigit]) {
-                row[header] = [NSNumber numberWithLongLong:value.longLongValue];
-            } else if ([value isBoolean]) {
-                row[header] = [NSNumber numberWithBool:value.boolValue];
-            } else {
-                row[header] = values[index];
-            }
-        }
-        [rows addObject:[NSDictionary dictionaryWithDictionary:row]];
-    }
-    self.rows = [NSArray arrayWithArray:rows];
+- (void)parseRowsFromLines:(NSArray *)lines{
+	NSMutableArray *rows = [NSMutableArray new];
+	NSUInteger len1 = lines.count;
+	for (NSUInteger i=1; i<len1; i++) {// 0行目はヘッダなので1からにします。
+		NSString* line = lines[i];
+		NSArray *values = [line componentsSeparatedByString:self.columnSeperator];
+		NSMutableDictionary *row = [NSMutableDictionary new];
+		NSUInteger len2 = self.headers.count;
+		for (NSUInteger j=0; j<len2; j++) {
+			NSString* header = self.headers[j];
+			NSString *value = values[j];
+			if ([value isDigit]) {
+				row[header] = [NSNumber numberWithLongLong:value.longLongValue];
+			} else if ([value isBoolean]) {
+				row[header] = [NSNumber numberWithBool:value.boolValue];
+			} else {
+				row[header] = values[j];
+			}
+		}
+		//        [rows addObject:[NSDictionary dictionaryWithDictionary:row]];
+		[rows addObject:row];
+	}
+	self.rows = [NSArray arrayWithArray:rows];
 }
 
 - (void)parseColumnsFromLines:(NSArray *)lines
 {
-    NSMutableDictionary *columns = [NSMutableDictionary new];
-    for (NSString *header in self.headers) {
-        NSMutableArray *values = [NSMutableArray new];
-        for (NSDictionary *row in self.rows) {
-            [values addObject:row[header]];
-        }
-        columns[header] = [NSArray arrayWithArray:values];
-    }
-    self.columns = [NSDictionary dictionaryWithDictionary:columns];
+	NSMutableDictionary *columns = [NSMutableDictionary new];
+	for (NSString *header in self.headers) {
+		NSMutableArray *values = [NSMutableArray new];
+		for (NSDictionary *row in self.rows) {
+			[values addObject:row[header]];
+		}
+		columns[header] = [NSArray arrayWithArray:values];
+	}
+	self.columns = [NSDictionary dictionaryWithDictionary:columns];
 }
 
 @end

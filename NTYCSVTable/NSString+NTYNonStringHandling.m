@@ -15,26 +15,22 @@ static NSArray *booleanStrings = nil;
 
 + (void)load
 {
-    if (!digitCharacterSet) {
-        digitCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
-    }
-    
-    if (!booleanStrings) {
-        booleanStrings = @[@"YES", @"NO", @"yes", @"no", @"TRUE", @"FALSE", @"true", @"false"];
-    }
+	if (!digitCharacterSet) {
+		digitCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+	}
+	
+	if (!booleanStrings) {
+		booleanStrings = @[@"YES", @"NO", @"yes", @"no", @"TRUE", @"FALSE", @"true", @"false"];
+	}
 }
 
-- (BOOL)isDigit
-{
-    NSScanner *scanner = [NSScanner localizedScannerWithString:self];
-    scanner.charactersToBeSkipped = NO;
-    [scanner scanCharactersFromSet:digitCharacterSet intoString:NULL];
-    return scanner.isAtEnd;
+- (BOOL)isDigit{
+	return [self rangeOfCharacterFromSet:digitCharacterSet].location != NSNotFound;
 }
 
 - (BOOL)isBoolean
 {
-    return [booleanStrings containsObject:self];
+	return [booleanStrings containsObject:self];
 }
 
 @end
