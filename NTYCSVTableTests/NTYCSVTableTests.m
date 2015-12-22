@@ -18,7 +18,6 @@
 - (void)setUp
 {
     [super setUp];
-    
     NSURL *csvURL = [[NSBundle bundleForClass:self.class] URLForResource:@"sample" withExtension:@"csv"];
     self.table = [[NTYCSVTable alloc] initWithContentsOfURL:csvURL];
 }

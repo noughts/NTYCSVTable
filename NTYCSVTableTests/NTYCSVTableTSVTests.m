@@ -18,10 +18,8 @@
 - (void)setUp
 {
     [super setUp];
-//    NSURL *csvURL = [[NSBundle bundleForClass:self.class] URLForResource:@"sample" withExtension:@"tsv"];
-//    self.table = [[NTYCSVTable alloc] initWithContentsOfURL:csvURL columnSeparator:@"\t"];
-	NSURL *csvURL = [[NSBundle bundleForClass:self.class] URLForResource:@"sample" withExtension:@"csv"];
-	self.table = [[NTYCSVTable alloc] initWithContentsOfURL:csvURL];
+    NSURL *csvURL = [[NSBundle bundleForClass:self.class] URLForResource:@"sample" withExtension:@"tsv"];
+    self.table = [[NTYCSVTable alloc] initWithContentsOfURL:csvURL columnSeparator:@"\t"];
 }
 
 - (void)tearDown
