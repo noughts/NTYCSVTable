@@ -10,13 +10,13 @@
 
 @implementation NSString (NTYNonStringHandling)
 
-static NSCharacterSet *digitCharacterSet = nil;
+static NSCharacterSet *nonDigitsCharSet = nil;
 static NSArray *booleanStrings = nil;
 
 + (void)load
 {
-	if (!digitCharacterSet) {
-		digitCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+	if (!nonDigitsCharSet) {
+		nonDigitsCharSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
 	}
 	
 	if (!booleanStrings) {
@@ -25,8 +25,7 @@ static NSArray *booleanStrings = nil;
 }
 
 - (BOOL)isDigit{
-	NSCharacterSet* nonNumbers = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
-	NSRange r = [self rangeOfCharacterFromSet: nonNumbers];
+	NSRange r = [self rangeOfCharacterFromSet: nonDigitsCharSet];
 	return r.location == NSNotFound;
 }
 
