@@ -25,6 +25,7 @@ static NSArray *booleanStrings = nil;
 }
 
 - (BOOL)isDigit{
+	/// http://stackoverflow.com/questions/6644004/how-to-check-if-nsstring-is-contains-a-numeric-value
 	NSRange r = [self rangeOfCharacterFromSet: nonDigitsCharSet];
 	return r.location == NSNotFound;
 }
