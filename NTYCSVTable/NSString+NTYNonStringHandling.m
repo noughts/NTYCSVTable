@@ -25,7 +25,9 @@ static NSArray *booleanStrings = nil;
 }
 
 - (BOOL)isDigit{
-	return [self rangeOfCharacterFromSet:digitCharacterSet].location != NSNotFound;
+	NSCharacterSet* nonNumbers = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+	NSRange r = [self rangeOfCharacterFromSet: nonNumbers];
+	return r.location == NSNotFound;
 }
 
 - (BOOL)isBoolean
