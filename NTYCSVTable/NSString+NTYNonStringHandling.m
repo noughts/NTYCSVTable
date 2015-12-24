@@ -24,6 +24,17 @@ static NSArray *booleanStrings = nil;
 	}
 }
 
+/// 適した形式に変換
+-(id)transformedValue{
+	if ([self isDigit]) {
+		return [NSNumber numberWithLongLong:self.longLongValue];
+	} else if ([self isBoolean]) {
+		return [NSNumber numberWithBool:self.boolValue];
+	} else {
+		return self;
+	}
+}
+
 - (BOOL)isDigit{
 	/// http://stackoverflow.com/questions/6644004/how-to-check-if-nsstring-is-contains-a-numeric-value
 	NSRange r = [self rangeOfCharacterFromSet: nonDigitsCharSet];

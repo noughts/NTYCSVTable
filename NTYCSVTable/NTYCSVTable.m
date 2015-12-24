@@ -16,11 +16,14 @@
 @property (nonatomic) NSString *columnSeperator;
 @end
 
-@implementation NTYCSVTable
+@implementation NTYCSVTable{
+	BOOL _withHeader;
+}
 
-- (instancetype)initWithString:(NSString*)str columnSeparator:(NSString *)separator{
+- (instancetype)initWithString:(NSString*)str columnSeparator:(NSString *)separator withHeader:(BOOL)withHeader{
 	self = [super init];
 	if (self) {
+		_withHeader = withHeader;
 		self.columnSeperator = separator;
 		NSString* csvString = [str stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 		NSArray *lines = [csvString componentsSeparatedByString:@"\n"];
@@ -29,6 +32,10 @@
 		[self parseColumnsFromLines:lines];
 	}
 	return self;
+}
+
+- (instancetype)initWithString:(NSString*)str columnSeparator:(NSString *)separator{
+	return [self initWithString:str columnSeparator:separator withHeader:YES];
 }
 
 - (instancetype)initWithContentsOfURL:(NSURL *)url columnSeparator:(NSString *)separator {
@@ -62,27 +69,47 @@
 - (void)parseRowsFromLines:(NSArray *)lines{
 	NSMutableArray *rows = [NSMutableArray new];
 	NSUInteger len1 = lines.count;
-	for (NSUInteger i=1; i<len1; i++) {// 0行目はヘッダなので1からにします。
+	NSUInteger initialCount = 0;
+	if( _withHeader ){
+		initialCount = 1;// ヘッダ付きデータの場合、0行目はヘッダなので1からにします。
+	}
+	for (NSUInteger i=initialCount; i<len1; i++) {
 		NSString* line = lines[i];
 		NSArray *values = [line componentsSeparatedByString:self.columnSeperator];
-		NSMutableDictionary *row = [NSMutableDictionary new];
-		NSUInteger len2 = self.headers.count;
-		for (NSUInteger j=0; j<len2; j++) {
-			NSString* header = self.headers[j];
-			NSString *value = values[j];
-			if ([value isDigit]) {
-				row[header] = [NSNumber numberWithLongLong:value.longLongValue];
-			} else if ([value isBoolean]) {
-				row[header] = [NSNumber numberWithBool:value.boolValue];
-			} else {
-				row[header] = values[j];
-			}
+		if( _withHeader ){
+			[rows addObject:[self createRowDictFromLineValues:values]];
+		} else {
+			[rows addObject:[self createRowArrayFromLineValues:values]];
 		}
-		//        [rows addObject:[NSDictionary dictionaryWithDictionary:row]];
-		[rows addObject:row];
 	}
 	self.rows = [NSArray arrayWithArray:rows];
 }
+
+-(NSDictionary*)createRowDictFromLineValues:(NSArray*)values{
+	NSMutableDictionary *dict = [NSMutableDictionary new];
+	NSUInteger len = self.headers.count;
+	for (NSUInteger j=0; j<len; j++) {
+		NSString* header = self.headers[j];
+		NSString *value = values[j];
+		dict[header] = [value transformedValue];
+	}
+	return dict;
+}
+
+-(NSArray*)createRowArrayFromLineValues:(NSArray*)values{
+	NSMutableArray *ary = [NSMutableArray new];
+	NSUInteger len = self.headers.count;
+	for (NSUInteger j=0; j<len; j++) {
+		NSString *value = values[j];
+		[ary addObject:[value transformedValue]];
+	}
+	return ary;
+}
+
+
+
+
+
 
 - (void)parseColumnsFromLines:(NSArray *)lines
 {

@@ -13,4 +13,7 @@
 - (BOOL)isDigit;
 - (BOOL)isBoolean;
 
+/// 適した形式に変換
+-(id)transformedValue;
+
 @end
