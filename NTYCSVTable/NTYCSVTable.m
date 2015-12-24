@@ -29,7 +29,9 @@
 		NSArray *lines = [csvString componentsSeparatedByString:@"\n"];
 		[self parseHeadersFromLines:lines];
 		[self parseRowsFromLines:lines];
-		[self parseColumnsFromLines:lines];
+		if( withHeader ){
+			[self parseColumnsFromLines:lines];
+		}
 	}
 	return self;
 }

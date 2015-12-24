@@ -17,6 +17,8 @@
 		3D8FFE0918FD20B200C3BC6E /* sample.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3D8FFE0818FD20B200C3BC6E /* sample.csv */; };
 		3D91811318FD364900203493 /* NSString+NTYNonStringHandling.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D91811218FD364900203493 /* NSString+NTYNonStringHandling.m */; };
 		3D91811418FD377500203493 /* NSString+NTYNonStringHandling.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D91811218FD364900203493 /* NSString+NTYNonStringHandling.m */; };
+		4DE14B0C1C2B9DE900BFBE01 /* sampleWithoutHeader.tsv in Resources */ = {isa = PBXBuildFile; fileRef = 4DE14B0B1C2B9DE900BFBE01 /* sampleWithoutHeader.tsv */; };
+		4DE14B0E1C2B9E1E00BFBE01 /* TSVWithoutHeaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE14B0D1C2B9E1E00BFBE01 /* TSVWithoutHeaderTests.m */; };
 		BEA85DE5190B99330040B0FB /* NTYCSVTableTSVTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA85DE4190B99330040B0FB /* NTYCSVTableTSVTests.m */; };
 		BEA85DE7190B99B30040B0FB /* sample.tsv in Resources */ = {isa = PBXBuildFile; fileRef = BEA85DE6190B99B30040B0FB /* sample.tsv */; };
 /* End PBXBuildFile section */
@@ -57,6 +59,8 @@
 		3D8FFE0818FD20B200C3BC6E /* sample.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample.csv; sourceTree = "<group>"; };
 		3D91811118FD364900203493 /* NSString+NTYNonStringHandling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NTYNonStringHandling.h"; sourceTree = "<group>"; };
 		3D91811218FD364900203493 /* NSString+NTYNonStringHandling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NTYNonStringHandling.m"; sourceTree = "<group>"; };
+		4DE14B0B1C2B9DE900BFBE01 /* sampleWithoutHeader.tsv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sampleWithoutHeader.tsv; sourceTree = "<group>"; };
+		4DE14B0D1C2B9E1E00BFBE01 /* TSVWithoutHeaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSVWithoutHeaderTests.m; sourceTree = "<group>"; };
 		BEA85DE4190B99330040B0FB /* NTYCSVTableTSVTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTYCSVTableTSVTests.m; sourceTree = "<group>"; };
 		BEA85DE6190B99B30040B0FB /* sample.tsv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sample.tsv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,11 +132,13 @@
 		3D8FFE0318FD1E9100C3BC6E /* NTYCSVTableTests */ = {
 			isa = PBXGroup;
 			children = (
+				4DE14B0B1C2B9DE900BFBE01 /* sampleWithoutHeader.tsv */,
 				BEA85DE6190B99B30040B0FB /* sample.tsv */,
 				3D8FFE0518FD1E9100C3BC6E /* NTYCSVTableTests.m */,
 				3D8FFE0418FD1E9100C3BC6E /* NTYCSVTableTests-Info.plist */,
 				3D8FFE0818FD20B200C3BC6E /* sample.csv */,
 				BEA85DE4190B99330040B0FB /* NTYCSVTableTSVTests.m */,
+				4DE14B0D1C2B9E1E00BFBE01 /* TSVWithoutHeaderTests.m */,
 			);
 			path = NTYCSVTableTests;
 			sourceTree = "<group>";
@@ -208,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D8FFE0918FD20B200C3BC6E /* sample.csv in Resources */,
+				4DE14B0C1C2B9DE900BFBE01 /* sampleWithoutHeader.tsv in Resources */,
 				BEA85DE7190B99B30040B0FB /* sample.tsv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -231,6 +238,7 @@
 				3D91811418FD377500203493 /* NSString+NTYNonStringHandling.m in Sources */,
 				3D8FFE0718FD1E9100C3BC6E /* NTYCSVTableTests.m in Sources */,
 				BEA85DE5190B99330040B0FB /* NTYCSVTableTSVTests.m in Sources */,
+				4DE14B0E1C2B9E1E00BFBE01 /* TSVWithoutHeaderTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
