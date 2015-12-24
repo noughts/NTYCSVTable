@@ -26,6 +26,9 @@ static NSArray *booleanStrings = nil;
 
 /// 適した形式に変換
 -(id)transformedValue{
+	if( self.length == 0 ){
+		return @"";
+	}
 	if ([self isDigit]) {
 		return [NSNumber numberWithLongLong:self.longLongValue];
 	} else if ([self isBoolean]) {
